@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odliczanie aż serek zagra z nami w DL2</title>
+
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  body{
+    background:#000;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    gap:25px;
+    padding:20px;
+  }
+
+  .title{
+    font-size:2.5vw;
+    font-weight:bold;
+  }
+
+  .timer{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .box{
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+    min-width:140px;
+  }
+
+  .num{
+    font-size:4vw;
+    font-weight:bold;
+  }
+
+  .label{
+    margin-top:8px;
+    color:#aaa;
+    letter-spacing:2px;
+  }
+
+  .top-text{
+    font-size:1.8vw;
+  }
+
+  .bottom-text{
+    font-size:1.4vw;
+    color:#ccc;
+  }
+
+  @media(max-width:900px){
+    .title{font-size:6vw;}
+    .num{font-size:12vw;}
+    .top-text{font-size:4vw;}
+    .bottom-text{font-size:4vw;}
+  }
+  .corner{
+     position:fixed;
+  top:20px;
+  right:20px;
+  width: 100px;
+  height: auto;
+    
+  }
+  .dopaminka{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width: 10px;
+  height: auto;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="top-text">
+  ⏳ Oczekiwanie aż serek zagra z nami w <b>DYING LIGHT 2</b> 🔥
+</div>
+<div class="corner">
+  <img src="./test.jpg" alt="Wielki B">
+</div>
+<div class="dopaminka">
+  <img src="dopaminka.gif" alt="dopaminka">
+</div>
+
+<div class="timer">
+
+  <div class="box">
+    <div class="num" id="days">0</div>
+    <div class="label">DNI 📅</div>
+  </div>
+
+  <div class="box">
+    <div class="num" id="hours">0</div>
+    <div class="label">GODZINY ⏰</div>
+  </div>
+
+  <div class="box">
+    <div class="num" id="minutes">0</div>
+    <div class="label">MINUTY ⏱️</div>
+  </div>
+
+  <div class="box">
+    <div class="num" id="seconds">0</div>
+    <div class="label">SEKUNDY ⚡</div>
+  </div>
+
+</div>
+
+<div class="bottom-text">
+  📍 Adres tego psa: Wągrodno 05-505 🐶
+</div>
+
+<script>
+const startDate = new Date(2026, 3, 17, 0, 0, 0);
+// 3 = kwiecień (miesiące liczone od 0!)
+
+function update(){
+  const now = new Date();
+
+  let diff = Math.floor((now - startDate) / 1000);
+
+  if(diff < 0) diff = 0;
+
+  const days = Math.floor(diff / 86400);
+  diff %= 86400;
+
+  const hours = Math.floor(diff / 3600);
+  diff %= 3600;
+
+  const minutes = Math.floor(diff / 60);
+  const seconds = diff % 60;
+
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours;
+  document.getElementById("minutes").innerText = minutes;
+  document.getElementById("seconds").innerText = seconds;
+}
+
+update();
+setInterval(update, 1000);
+</script>
+
+</body>
+</html>
