@@ -1,138 +1,164 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Odliczanie az serek zagra w dl2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odliczanie aż serek zagra z nami w DL2</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
 
-   body{
-  background:#000;
-  color:#fff;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  font-family:Arial, sans-serif;
-  gap:40px;
-}
+  body{
+    background:#000;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    gap:25px;
+    padding:20px;
+  }
 
-    .timer-container{
-      display:flex;
-      gap:40px;
-      text-align:center;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
+  .title{
+    font-size:2.5vw;
+    font-weight:bold;
+  }
 
-    .box{
-      background:#111;
-      padding:40px;
-      border-radius:25px;
-      min-width:220px;
-      box-shadow:0 0 30px rgba(255,255,255,0.1);
-    }
+  .timer{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
 
-    .number{
-      font-size:7vw;
-      font-weight:bold;
-    }
+  .box{
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+    min-width:140px;
+  }
 
-    .label{
-      margin-top:15px;
-      font-size:1.8vw;
-      color:#aaa;
-      letter-spacing:2px;
-    }
+  .num{
+    font-size:4vw;
+    font-weight:bold;
+  }
 
-    @media(max-width:900px){
+  .label{
+    margin-top:8px;
+    color:#aaa;
+    letter-spacing:2px;
+  }
 
-      .timer-container{
-        flex-direction:column;
-      }
+  .top-text{
+    font-size:1.8vw;
+  }
 
-      .number{
-        font-size:18vw;
-      }
+  .bottom-text{
+    font-size:1.4vw;
+    color:#ccc;
+  }
 
-      .label{
-        font-size:5vw;
-      }
-    .title{
-  font-size:3vw;
-  letter-spacing:4px;
-  color:white;
-  text-align:center;
-}
-    }
-  </style>
+  @media(max-width:900px){
+    .title{font-size:6vw;}
+    .num{font-size:12vw;}
+    .top-text{font-size:4vw;}
+    .bottom-text{font-size:4vw;}
+  }
+  .corner{
+     position:fixed;
+  top:20px;
+  right:20px;
+  width: 100px;
+  height: auto;
+    
+  }
+  .dopaminka{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width: 10px;
+  height: auto;
+  }
+</style>
+
 </head>
+
 <body>
-   <h1 class="title">ODLICZANIE AZ SEREK ZAGRA Z NAMI W DL2</h1>
 
-  <div class="timer-container">
+<div class="top-text">
+  ⏳ Oczekiwanie aż serek zagra z nami w <b>DYING LIGHT 2</b> 🔥
+</div>
+<div class="corner">
+  <img src="./test.jpg" alt="Wielki B">
+</div>
+<div class="dopaminka">
+  <img src="dopaminka.gif" alt="dopaminka">
+</div>
 
-    <div class="box">
-      <div class="number" id="days">00</div>
-      <div class="label">DNI</div>
-    </div>
+<div class="timer">
 
-    <div class="box">
-      <div class="number" id="hours">00</div>
-      <div class="label">GODZINY</div>
-    </div>
-
-    <div class="box">
-      <div class="number" id="minutes">00</div>
-      <div class="label">MINUTY</div>
-    </div>
-
-    <div class="box">
-      <div class="number" id="seconds">00</div>
-      <div class="label">SEKUNDY</div>
-    </div>
-
+  <div class="box">
+    <div class="num" id="days">0</div>
+    <div class="label">DNI 📅</div>
   </div>
 
-  <script>
-    // DATA STARTU
-    const startDate = new Date("2026-04-17T00:00:00");
+  <div class="box">
+    <div class="num" id="hours">0</div>
+    <div class="label">GODZINY ⏰</div>
+  </div>
 
-    function updateTimer() {
+  <div class="box">
+    <div class="num" id="minutes">0</div>
+    <div class="label">MINUTY ⏱️</div>
+  </div>
 
-      const now = new Date();
+  <div class="box">
+    <div class="num" id="seconds">0</div>
+    <div class="label">SEKUNDY ⚡</div>
+  </div>
 
-      // różnica w sekundach
-      const diff = Math.floor((now - startDate) / 1000);
+</div>
 
-      const days = Math.floor(diff / 86400);
-      const hours = Math.floor((diff % 86400) / 3600);
-      const minutes = Math.floor((diff % 3600) / 60);
-      const seconds = diff % 60;
+<div class="bottom-text">
+  📍 Adres tego psa: Wągrodno 05-505 🐶
+</div>
 
-      document.getElementById("days").innerText =
-        String(days).padStart(2, '0');
+<script>
+const startDate = new Date(2026, 3, 17, 0, 0, 0);
+// 3 = kwiecień (miesiące liczone od 0!)
 
-      document.getElementById("hours").innerText =
-        String(hours).padStart(2, '0');
+function update(){
+  const now = new Date();
 
-      document.getElementById("minutes").innerText =
-        String(minutes).padStart(2, '0');
+  let diff = Math.floor((now - startDate) / 1000);
 
-      document.getElementById("seconds").innerText =
-        String(seconds).padStart(2, '0');
-    }
+  if(diff < 0) diff = 0;
 
-    updateTimer();
-    setInterval(updateTimer, 1000);
-  </script>
+  const days = Math.floor(diff / 86400);
+  diff %= 86400;
+
+  const hours = Math.floor(diff / 3600);
+  diff %= 3600;
+
+  const minutes = Math.floor(diff / 60);
+  const seconds = diff % 60;
+
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours;
+  document.getElementById("minutes").innerText = minutes;
+  document.getElementById("seconds").innerText = seconds;
+}
+
+update();
+setInterval(update, 1000);
+</script>
 
 </body>
 </html>
